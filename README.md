@@ -33,7 +33,7 @@ Pushing:
   $ docker login
  
 2)Tag the image
-  $ docker tag <image_name>:version username/<image_name>
+  $ docker tag <image_name>:version username/image_name
   $ docker tag python-django:latest fareen341/python-django
  
 3)After docker images you'll see the image listed
@@ -50,12 +50,12 @@ To pull the image see public view and grab the command and use to pull the image
 </pre>
 
 <p>To remove an image from your machine</p>
-<pre>$ docker rmi <image_name></pre>
+<pre>$ docker rmi image_name</pre>
 
 <p>To run the image</p>
 After pull we can run the image using command:<br>
 <pre>
-$ docker run -p port <docker-image-name>
+$ docker run -p port docker-image-name
 Example: $ docker run -p 8000:8000 fareen341/python-django
 </pre>
 
@@ -90,7 +90,7 @@ To ignore the virtual environment we created use the .dockerignore. file and add
 */venv
 
 5)Build the image using the command:
-  $ docker build --tag <name-of-image>  .    
+  $ docker build --tag name-of-image .    
   #tag is used to give name to the image
   #dot refers to the current folder
   
