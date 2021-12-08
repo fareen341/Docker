@@ -151,8 +151,8 @@ This will run the shell and we can execute the commands
 $ sudo docker exec -i -t 78cdb05b5163 sh
 
 Run the commands 
-# ls
-# pwd
+ls
+pwd
 </pre>
 
 <p>To check the logs</p>
