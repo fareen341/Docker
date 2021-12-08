@@ -1,7 +1,4 @@
-# Extra-Knowledge
-
-We can use Netlify to get free instance.<br>
-We can use FreeNom to get free domain: The limitation is you can only get domains ending in .tk, .ml, .ga, .cf, or .gq<br>
+# DOCKER 
 
 <h1>What is Docker</h1>
 <p>Docker is a container servicer used to isolate an app/environment so that it run without anoyone's interruption. So the chances of getting the error cuz of other service runnning on our computer get reduced. It takes some portion/resource from our computer.</p>
