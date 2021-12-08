@@ -13,3 +13,7 @@ We can use FreeNom to get free domain: The limitation is you can only get domain
 
 <br>
 <p>If someone else is running my created image that means they are using the same environment what we've used so minimal or no chances of getting the error</p>
+
+<h1>Interview Question</h1>
+<b>What is docker</b>
+<p>Image a scnario where you built an application in ubuntu and give it to someone for production the production guy workds on fedora linux system and it has different method of dealing with application so it is showing error to avoid this packaging your application into a container.</p>
