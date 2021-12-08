@@ -18,7 +18,24 @@ We can use FreeNom to get free domain: The limitation is you can only get domain
 <b>What is docker</b>
 <p>Image a scnario where you built an application in ubuntu and give it to someone for production the production guy workds on fedora linux system and it has different method of dealing with application so it is showing error to avoid this packaging your application into a container.</p>
 
+<h1>What is image and container</h1>
+
+![Screenshot from 2021-12-08 11-21-15](https://user-images.githubusercontent.com/59610617/145155628-608e15ce-e5ec-4160-b2e7-eaeb86552340.png)
+
+
 <h1>Docker commands</h1>
+<p>To install and check the status of docker in ubuntu</p>
+<pre>When we write docker and hit enter the first command we see we can use it to install the docker or follow other methods given on internet
+After download check the version, $ docker --version will show the version meaning docker is installed successfully.
+
+Checking the status of docker:
+$ sudo systemctl status docker
+If it says active and running that means we dont need to enable it
+
+If it is inactive(dead) we need to enable it:
+$ sudo systemctl enable --now docker
+</pre>
+
 <p>To pull simple hello-world docker image use command:</p>
   <pre>docker run hello world.</pre>
  
@@ -103,3 +120,41 @@ To ignore the virtual environment we created use the .dockerignore. file and add
 After this command we can see our application running on port 8000 on browser.
 Docker will run each commands given in Dockerfile when we run it.
 </pre>
+
+<p>To list all the running containers</p>
+This will list all the running docker images.
+<pre>$ docker ps
+$ docker ps --all      #this will show all the exited container
+</pre>
+
+<p>To stop the container</p>
+<pre>
+1)Do the docker ps, grab the id of the particular container which we want to stop.
+2)Run docker stop container_id
+  $ docker stop 398298163
+</pre>
+
+<p>To kill the running container</p>
+<pre>
+$ docker kill container_id
+</pre>
+
+<p>To list all the files and folders inside the app.</p>
+<pre>$ docker run filename ls
+EXample:
+$ docker run python-django ls
+</pre>
+
+<p>To run the commands as in ls, pwd etc</p>
+This will run the shell and we can execute the commands
+<pre>
+$ sudo docker exec -i -t 78cdb05b5163 sh
+
+Run the commands 
+# ls
+# pwd
+</pre>
+
+<p>To check the logs</p>
+We can see the logs of the container which is running.
+<pre>$ docker logs container_id</pre>
