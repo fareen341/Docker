@@ -112,7 +112,7 @@ To ignore the virtual environment we created use the .dockerignore. file and add
   $ docker build --tag python-django .
   
 6)Publish using the 8000 port
-  $ dockerrun --publish 8000:8000 python-django
+  $ docker run --publish 8000:8000 python-django
   
 After this command we can see our application running on port 8000 on browser.
 Docker will run each commands given in Dockerfile when we run it.
