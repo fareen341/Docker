@@ -155,3 +155,6 @@ pwd
 <p>To check the logs</p>
 We can see the logs of the container which is running.
 <pre>$ docker logs container_id</pre>
+
+<p>To completely remove docker from your system along with images and container, follow the below link</p>
+<pre>https://askubuntu.com/questions/935569/how-to-completely-uninstall-docker</pre>
