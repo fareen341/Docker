@@ -158,3 +158,12 @@ We can see the logs of the container which is running.
 
 <p>To completely remove docker from your system along with images and container, follow the below link</p>
 <pre>https://askubuntu.com/questions/935569/how-to-completely-uninstall-docker</pre>
+
+<p>To remove/delete the image</p>
+<pre>$ docker rmi image-id
+if it says error renponse from daemon: conflict: unable to delete df87b56050c2 (must be forced) - image is being used by stopped container then use:
+  $ docker rmi -f image_id 
+
+If you use the -f flag and specify the image’s short or long ID, then this command untags and removes all images that match the specified ID.
+This command removes images being used by containers.
+</pre>
