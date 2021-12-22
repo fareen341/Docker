@@ -167,3 +167,15 @@ if it says error renponse from daemon: conflict: unable to delete df87b56050c2 (
 If you use the -f flag and specify the image’s short or long ID, then this command untags and removes all images that match the specified ID.
 This command removes images being used by containers.
 </pre>
+
+<pre>
+This cleans up the dangling images and dead containers.
+  $ sudo docker image prune -f && sudo docker container prune -f 
+</pre>
+
+<pre>
+you can use this command to see if you have hide images.
+
+docker image ls -a
+
+</pre>
