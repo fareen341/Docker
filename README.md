@@ -35,6 +35,26 @@ diagram<br>
 ![Screenshot from 2021-12-08 11-21-15](https://user-images.githubusercontent.com/59610617/145155628-608e15ce-e5ec-4160-b2e7-eaeb86552340.png)
 
 
+<h1>How to install Docker?</h1>
+<pre>
+$ yum install docker -y
+
+//check the service
+$ service docker status
+
+//start the service 
+$ service docker start
+
+//start the docker service
+$ chkconfig docker on
+
+New group is created when installing docker 
+$ cat /etc/group/
+op: docker
+
+We can add users to Docker group using the RedHat useradd command
+</pre>
+
 <h1>Docker commands</h1>
 <p>To install and check the status of docker in ubuntu</p>
 <pre>When we write docker and hit enter the first command we see we can use it to install the docker or follow other methods given on internet
