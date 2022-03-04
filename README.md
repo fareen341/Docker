@@ -10,10 +10,25 @@
 
 <br>
 <p>If someone else is running my created image that means they are using the same environment what we've used so minimal or no chances of getting the error</p>
-
-<h1>Interview Question</h1>
-<b>What is docker</b>
 <p>Image a scnario where you built an application in ubuntu and give it to someone for production the production guy workds on fedora linux system and it has different method of dealing with application so it is showing error to avoid this packaging your application into a container.</p>
+
+<h1>Why Docker</h1>
+<p>1)We used virtualization(vmware) technique using hypervisor it was a big success of problem where 10% of the hardware is in use and 80-90% were idle</p>
+<p>2)After the virtualization we started using vmwares where we install OS on every virtual machine every OS costs us a lot </p>
+<p>3)To save these OS cost we started using containers service which is using the same (OS)kernal we create many containers. One OS many containers. Which is docker.</p>
+
+<p>i)virtualizating hardware(using vmware).</p>
+<p>ii)virtualizating OS(using container).</p>
+every container have different apps.</p>
+
+<p>Two benefits we are getting by using this technique first virtualization meaning we using virtual machine of cloud platform and on top of that we are running containers.</p>
+
+<p>Docker is created by solomon hykes which invented a company named dotcloud which is again named docker. they are writing all these things in go language</p>
+
+diagram<br>
+
+![Screenshot from 2022-03-04 17-35-20](https://user-images.githubusercontent.com/59610617/156760598-c22d3670-b7f7-43e8-9c5f-181062b0200b.png)
+
 
 <h1>What is image and container</h1>
 
