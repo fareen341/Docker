@@ -214,3 +214,124 @@ you can use this command to see if you have hide images.
 docker image ls -a
 
 </pre>
+
+<b>Running the docker pull image twice</b><br>
+<p>Though we have run ubuntu image twice but still it is showing once on doing docker images meaning it only once download the image if it already exist it won't consume space, it'll run from local. Every images it search first locally and then download from hub. 
+If image present locally then it won't be downloaded from docker hub.</p>
+
+<b>Downlaoding particular version</b><br>
+<pre>if we do docker run ubuntu: it runs latest ubuntu
+to get particular version: docker run ubuntu:version</pre>
+
+<b>Deatched mode</b><br>
+<pre>$ docker run -d ubuntu sleep 60
+To make it run in the background</pre>
+
+<b>To execute commands inside the container</b><br>
+<pre>$ docker exec img_id cat /etc/os-release</pre>
+
+<b>docker run uses</b><br>
+<pre>
+1)attach/foreground
+2)deatach/background(run in background): -d
+Cuz if we run $ docker run container it'll run and stop but using -d it runs in the background
+3)interactive mode: -it
+
+$ docker run -it ubuntu
+o/p: we'll be inside the container
+this image is like virtual machine, we can download anything run anything inside this container
+this is just like virtual machine
+To get out of it: exit
+</pre>
+
+<b>Removing image. Reclamaining the space from host(Removing unwanted images from the host):
+</b><br>
+<pre>
+$ docker rmi img_id
+if it says image is in use by stopped container, force remove
+1)docker rm container_id 		//to remove the container
+	 docker rm container_id container_id container_id	//to remove multiple containers
+	
+2)docker rmi img_id
+</pre>
+
+<b>To force remove the image</b><br>
+<pre>
+$ docker rmi img_id --force
+But after docker ps -a our container will still point to tht gone image
+</pre>
+
+<b>Interview: docker run VS docker pull</b><br>
+<pre>
+pull: only download the image
+run: download image + run a container
+</pre>
+
+<b>docker inspect container_id</b><br>
+<pre>
+Have information of of env path, graphic drive etc. Detail info of our container
+By default every container will have ip addresses.
+</pre>
+
+<b>Detailed info of container</b><br>
+<pre>
+What is activity that is hapenning with our container
+$ docker logs container_id
+</pre>
+
+<b>Difference betn -a and all, as in docker ps -a</b><br>
+
+<b>To use a image</b><br>
+<pre>
+$ docker run -p 8080:8080 
+The first 8080 is for HOST
+2nd one is for CONTAINER
+
+Example:
+$ docker run -p 8080:8080 -p 50000:50000 -v /your/home:/var/jenkins_home jenkins
+
+-v: for volume
+/your/home: this is for for host(should be available on host)
+/var/jenkins_home: this is for container(should be available on container)
+
+$ docker run -p 8080:8080 -p 50000:50000 -v /tmp:/var/jenkins_home jenkins
+if for some reason if container goes down it'll store data on /tmp . so we can run the container again using the same command so it'll recover from that /tmp folder
+</pre>
+
+<b>Error</b><br>
+<pre>
+1)manifest: its not found
+if we encounter this error then use the colon & version
+</pre>
+
+<b>Sample image(for sleep)</b><br>
+<pre>
+Dockerfile
+FROM ubuntu:20.04        	//or :latest
+ENTRYPOINT ["sleep"]		//the very first command(it can be yum to install some package)
+CMD ['50']
+
+//build an image
+$ docker build -t sleepercell .
+
+//running the image
+$ docker run -d sleepercell
+
+If we modify the Dockerfile and add few more command:
+it'll never download the ubuntu again and other commands again which were already present, it'll start from the command which is not present.
+So that is why it is called layer architecture(it can be reutilized the instruction which is written inside dockerfile/imagefile). 
+
+Whenever we built image, its build using Dockerfile
+
+Redis: in memory database(data will be stored in memory). V fast processing of data, real time processing of data
+
+microservice: diving one application to multiple services(as in application, cache, db etc) & each application we'll run inside one image.
+
+Example: votingapp application use microservices(python(for voting), redis, .net, db, nodejs). So we need 5 different container to run this image. So we nned:
+i)5 containers
+2)5 images
+ first of all we need radis image, then votingapp(using python), then database, then .net, then node js
+
+We can create an image for Nagios download cuz it takes long steps 
+</pre>
+
