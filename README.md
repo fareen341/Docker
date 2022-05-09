@@ -335,3 +335,87 @@ i)5 containers
 We can create an image for Nagios download cuz it takes long steps 
 </pre>
 
+<h3>Voting App</h3>
+<pre>
+METHOD 1: manuall process
+
+To run sample voting application given by docker ppl:
+1)clone there repo
+2)get the necessary images so look the version of all these images in DockerCompose.yml and get those images
+i)first we need redis image
+	$ sudo docker run -d --name=redis redis:5.0-alpine3.10
+ii)now we need vote application ->get inside vote
+build the image using the current folder 
+vote $ sudo docker build -t votingapp .
+$ sudo docker images
+	
+//run the image(check the port on DockerCompose.yml file):
+$ docker run -p 5000:80 --link redis:redis votingapp
+always left is image i.e port 5000 and right is the container i.e port 80
+Check on browser aws_dns:5000
+	
+iii)now we need db:
+We need to run the environment varible for postgres
+You can see on DockerCompose.yml they use 2 env variable postgres_user & postgres_pswd
+
+$ sudo docker run -d --name=db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres postgres:9.4
+//-e: for env variable	
+
+$ docker ps
+//postgres container running
+
+iv)now we need worker appln
+Go to worker folder
+worker $ sudo docker build -t workerapp .
+
+//run image 
+$ sudo docker run -d --link redis:redis --link db:db workerapp
+
+v)now we need result
+result $ docker build resultapp .
+
+//run image it is web appln so look for port
+$ sudo docker run -d -p 5001:80 --link db:db resultapp
+
+
+CONCLUSION:
+We need 5 virtual machines atleast using older technology. But here we using 1GB ram we're running complete application with two databases & 5 containers
+
+
+METHOD 2: automate process using docker compose.
+In the above method we run 3 different dockerfile.
+We decide which container or image should run now.
+We did all these things manually/individually.
+
+To automate the above steps:
+How to create multiple container in the single point of time?
+-> Docker Compose(used to create multiple container in whatever order we want) it is basically yaml file. 
+1)We need to downlowd docker compose(it has docker engine prerequisite).
+2)Go to docker compose official page and copy paste the cmd to install it
+
+Step 1: remove all the container and images we've created from above steps
+
+Understanding DockerCompose:
+1)build: is basicalliy build we used above i.e docker build ./vote  (. :from current dir, /vote: create vote folder)
+2)They did not use build for redis cuz its image is available already.
+3)They are Linking using depends on in docker compose file. So worker is linked with redis and db too.
+Visit to download docker-compose(https://phoenixnap.com/kb/install-docker-compose-on-ubuntu-20-04)
+
+Running docker compose:
+$ docker-compose up
+This single comand will run all 5 containers.
+
+Check both the port aws_dns:5000 & aws_dns:5001 both app is running.
+
+<b>Error:</b>
+$ sudo docker rmi 4f73503d10e5
+Error response from daemon: conflict: unable to delete 4f73503d10e5 (must be forced) - image is being used by stopped container
+Soln: $ docker ps -a
+remove all the stopped containers using $ docker rm exited_container_name
+
+
+ 
+
+
+
+ 
