@@ -413,6 +413,82 @@ Error response from daemon: conflict: unable to delete 4f73503d10e5 (must be for
 Soln: $ docker ps -a
 remove all the stopped containers using $ docker rm exited_container_name
 
+<h1>Running the docker provided sample application voting app</h1>
+<pre>
+Step 1: Clone it
+Step 2: We need redis container to run in background
+$ docker run -d --name=redis redis:5.0-alpine3.10
+--name: naming the container
+
+Step 3: build the image go inside vote folder
+$ ll		//will display vote folder
+vote $ docker build -t votingapp .
+
+Step 4: running the build image
+$ docker run -d -p 5000:80 --link redis:redis img_name
+why 5000: cuz dockerfile has 5000 port, 5000:80
+so enable 5000 in ec2 security group
+80: our application using it
+--link: to link our application with redis db
+redis:redis , for image: for container
+if --link not working use -link
+
+Next flow
+Step 5: Install postgres sql
+We need to use environment variable, if we dont give env variable it'll give error expected that 
+example: 
+docker run -d --name=db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres postgres:9.4
+o/p: postgres container will be up & running
+
+Step 6: build worker application
+go inside worker
+worker $ docker built -t workerapp .
+
+Step 6: running worker app
+$ docker run -d -link redis:redis db:db workerapp
+
+Step 7: cd result/
+result $ docker built -t resultapp .
+
+Step 8: running the image
+$ docker run -d -p 5001:80 -link db:db resultapp
+
+
+<b>Result: if we run the entire code in vmware we need 5 virtual machine atleast
+And we're running all these in 1gb cpu machine, so container service is powerfull
+</b>
+
+Note: we need 5000 port no. in AWS
+if customer hitting 5000 port he'll se vote app and if he'll hit 5001 then he'll see result app.
+
+
+We have used 5 images and in that we use 2 images(redis, postgres) from dockerhub and wrote dockerfile for other 3
+
+All these we are doing manually: creating image manually, creating container manually
+
+Docker run in ad-hoc command(single command)
+</pre>
+
+<h1>Running all the 5 containers using docker compose</h1>
+<pre>
+What is docker compose?
+To create multiple images, it is basically yaml file
+
+Running all the 5 containers using docker compose:
+In github read docker-compose.yml
+
+inside this image they build vote app first & they have created 5 services
+They have build all 3 images first and for other 2 they have used image
+depends_on: for linking containers together  
+
+
+Step 1: install docker compose from docker compose install page for linux run all the steps given to install docker-compose
+$ docker-compose --version 
+ 
+Step 2: go inside the example-vote app
+example-vote $ docker-compose up
+</pre>
+
 
  
 
