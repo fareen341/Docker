@@ -412,6 +412,7 @@ $ sudo docker rmi 4f73503d10e5
 Error response from daemon: conflict: unable to delete 4f73503d10e5 (must be forced) - image is being used by stopped container
 Soln: $ docker ps -a
 remove all the stopped containers using $ docker rm exited_container_name
+</pre>
 
 <h1>Running the docker provided sample application voting app</h1>
 <pre>
