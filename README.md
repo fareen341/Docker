@@ -81,9 +81,12 @@ Pushing:
 1)Login:
   $ docker login
  
-2)Tag the image
-  $ docker tag <image_name>:version username/image_name
+2)Tag the image<br>
+<pre>
+  $ docker tag image_name:version username/image_name
   $ docker tag python-django:latest fareen341/python-django
+  </pre>
+  
  
 3)After docker images you'll see the image listed
   $ docker images
