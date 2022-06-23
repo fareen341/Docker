@@ -493,7 +493,32 @@ Step 2: go inside the example-vote app
 example-vote $ docker-compose up
 </pre>
 
+<h1>Creating image for django(backend) react(frontend) using docker compose</h1>
+<pre>
+<pre>    
+services:
+  web:
+    build: ./OnlineShop
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
 
+  frontend:
+    build: ./online-shop
+    command: npm run start
+    depends_on:
+      - web			//meaning web container will run first
+    ports:
+      - "3000:3000"
+</pre>
+
+For docker compose to run there should be dockerfile in both frontend and backend
+and the run
+$ docker-compose up 
+
+EXAMPLE:
+https://github.com/fareen341/watch-app-docker-compose
+</pre>
  
 
 
