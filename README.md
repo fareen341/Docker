@@ -521,6 +521,13 @@ https://github.com/fareen341/watch-app-docker-compose
 </pre>
  
 
+<h1>Extra</h1>
+<pre>
+To copy file from local to docker container:
+docker cp foo.txt container_id:/foo.txt
+Example:
+$ docker cp test fd1a92d80971:/app/teste
 
-
+Link followed: https://stackoverflow.com/questions/22907231/how-to-copy-files-from-host-to-docker-container
+</pre>
  
