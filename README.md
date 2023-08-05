@@ -562,8 +562,7 @@ services:
   service2:
     image: <image_name>:<tag>
     # Add other configurations for the service
-
-# You can define more services below if needed
+#You can define more services below if needed
 </pre>
 
 <h3>Scaling in docker compose</h3>
