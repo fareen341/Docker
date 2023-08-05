@@ -519,6 +519,7 @@ $ docker-compose up
 EXAMPLE:
 https://github.com/fareen341/watch-app-docker-compose
 
+<h1>Docker Components and Its related questions</h1>
 <h3>Volumes</h3>
 1. First of all data in container referes to data as in: Application logs, User upload files, Cache data etc.
 2. In production env more than one container will be running for HA, so they should share the data using shared remote storage.
@@ -541,9 +542,111 @@ explain: You are exposing port 80 of the container (<container_port>) to port 80
 <h3>Link and Depends on</h3>
 1. We use --link option allows you to link the container to another container by its name or alias. 
 2. In docker compose we run depends_on
+3. We have:
+	i. Default network
+ 	ii. User defined network
+4. When you define services in a Docker Compose file without specifying any network, Docker Compose automatically creates a default bridge network for the services.
+5. Each service is connected to this default network, and Docker Compose assigns a unique DNS name to each service based on its service name.
+6. This default bridge network allows the services to communicate with each other using their service names as hostnames.
+
+<h3>Services</h3>
+Each service corresponds to a container in your multi-container application. Within the services section, you define the various attributes and settings for each service.
+<pre>
+version: '3'  # Specify the Compose file version (e.g., '3' is commonly used)
+
+services:
+  service1:   # Service name (can be any meaningful name)
+    image: <image_name>:<tag>  # Specify the Docker image and its tag to be used for the service
+    # Add other configurations for the service
+
+  service2:
+    image: <image_name>:<tag>
+    # Add other configurations for the service
+
+# You can define more services below if needed
+</pre>
+
+<h3>Scaling in docker compose</h3>
+1. Scaling is like replicas, like we've deployment in k8s. So it create that number of containers
+2. Example: For example, to scale the webapp service to have three replicas:
+$ docker-compose up --scale webapp=3
+
+<h3>Environment variable</h3>
+1. Inline definition: giving in the same compose file:
+<pre>
+version: '3'
+
+services:
+  webapp:
+    image: my_webapp_image:latest
+    environment:
+      - ENV_VARIABLE1=value1
+      - ENV_VARIABLE2=value2
+
+</pre>
+
+2. External File:
+<pre>
+.env:
+ENV_VARIABLE1=value1
+ENV_VARIABLE2=value2
 
 
 
+docker-compose:
+version: '3'
+
+services:
+  webapp:
+    image: my_webapp_image:latest
+    env_file:
+      - .env
+</pre>
+
+
+<h2>Override default configurations defined in a Docker Compose file</h3>
+1. Docker Compose allows you to use additional Compose files to override or extend the configurations in the base docker-compose.yml file.
+2. By default, Docker Compose looks for an optional file named docker-compose.override.yml and automatically reads it if present.
+3. The settings in the docker-compose.override.yml file take precedence over the base file.
+You can define additional services, networks, volumes, and other configurations in the override file.
+For example, let's assume the docker-compose.yml file has the following configuration:
+<pre>
+version: '3'
+
+services:
+  webapp:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    environment:
+      ENV_VARIABLE: default_value
+</pre>
+You can create a docker-compose.override.yml file with the following content to override the environment variable:
+<pre>
+version: '3'
+
+services:
+  webapp:
+    environment:
+      ENV_VARIABLE: my_custom_value
+</pre>
+When you run docker-compose up, Docker Compose will read both files, and the ENV_VARIABLE will be overridden with the value from the docker-compose.override.yml file.
+
+4. Using override file is helpfull when yoy've different environments for eg: Dev, Stage, Production.
+
+<h3>Difference between the build and image attributes in a Docker Compose file</h3>
+1. `build` used for building custom image. 
+2. `image` used when we have existing image. Example: we've redis image for voting app and workerapp as a custom image.
+
+<h3>Q: How can you monitor and troubleshoot Docker containers and their performance?</h3>
+1. We can use k8s for automatically monitoring and handling. 
+2. If we dont want to use k8s we can use prometheus tool or serive avaialble in AWS or cloudwatch container insights i guess.
+
+<h3>Q: How do you handle secret management in Docker and containers?</h3>
+So for conatiner db credential would be secret.
+1. If we're using k8s then we can use secret feature of k8s.
+2. We can use Docker secret for storing secret.
+3. We can use AWS secret maanger for storing docker secret. See more: https://stackoverflow.com/questions/71704931/set-aws-secret-manager-value-in-docker-environment
 </pre>
  
 
