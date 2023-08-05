@@ -519,7 +519,30 @@ $ docker-compose up
 EXAMPLE:
 https://github.com/fareen341/watch-app-docker-compose
 
-<h3>Volumne</h3>
+<h3>Volumes</h3>
+1. First of all data in container referes to data as in: Application logs, User upload files, Cache data etc.
+2. In production env more than one container will be running for HA, so they should share the data using shared remote storage.
+
+<h3>Port</h3>
+$ -p <host_port>:<container_port>
+-p: port
+
+Everytime we see 2 ports and names given, which is speerated by colon then it'd follow the above like only host:container.
+
+Example:
+docker run -p 8080:80 my_web_app
+
+explain: You are exposing port 80 of the container (<container_port>) to port 8080 on the host (<host_port>). It means that the application running inside the container, which listens on port 80, will be accessible from the host system at http://localhost:8080.
+
+<h3>Network</h3>
+1. In docker compose network is used for communication between different containers.
+2. Example: in voting-app they have defined one custom named back-tier netweok and use that netweok in docker file.
+
+<h3>Link and Depends on</h3>
+1. We use --link option allows you to link the container to another container by its name or alias. 
+2. In docker compose we run depends_on
+
+
 
 </pre>
  
