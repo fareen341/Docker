@@ -700,4 +700,10 @@ How can you monitor and troubleshoot Docker containers and their performance?
 How do you handle secret management in Docker and containers?
 What are some common challenges you might face when using Docker in production environments?
 </pre>
- 
+
+ # Install package inside docker
+<pre>
+  $ apt update
+  $ apt install nano
+  # apt install -y git	
+</pre>
